@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/output.css">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <title>Document</title>
+    <script>
+        let token = localStorage.getItem('token')
+        let user = JSON.parse(localStorage.getItem('user'))
+        if (!token || !user || user.role != "admin") location.replace('auth.htm')
+
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="styles/loader.css">
+</head>
+
+<body>
+    <div id="loaderModal" class="hidden fixed z-100 w-full h-full bg-black indent-0 flex items-center justify-center">
+        <div class="spinner">
+            <div class="spinnerin"></div>
+        </div>
+    </div>
+    <div class="drawer lg:drawer-open">
+        <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content">
+            <!-- Navbar -->
+            <nav class="navbar w-full flex items-center justify-between bg-base-300">
+                <div class="flex items-center gap-1">
+                    <label for="my-drawer-4" aria-label="open sidebar" class="btn btn-square btn-ghost">
+                        <!-- Sidebar toggle icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round"
+                            stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor"
+                            class="my-1.5 inline-block size-4">
+                            <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z">
+                            </path>
+                            <path d="M9 4v16"></path>
+                            <path d="M14 10l2 2l-2 2"></path>
+                        </svg>
+                    </label>
+                    <p>Apasni News</p>
+                </div>
+                <button onclick="logOut()" class="btn btn-primary">Log Out</button>
+            </nav>
+            <!-- Page content here -->
+            <div id="pages" class="pt-5 px-4">
+                <div class="page " id="news">
+                    <div class="flex items-center justify-between py-3">
+                        <h1 class="font-semibold text-3xl ">News</h1>
+                        <div>
+                            <!-- Open Modal -->
+                            <button class="btn btn-primary" onclick="my_modal_1.showModal()">
+                                Add News
+                            </button>
+
+                            <!-- Modal -->
+                            <dialog id="my_modal_1" class="modal ">
+                                <div class="modal-box  w-full max-w-2xl bg-gray-900 text-white">
+                                    <form method="dialog">
+                                        <button>
+                                            Close
+                                        </button>
+                                    </form>
+                                    <h3 class="text-xl font-bold mb-6">Create News</h3>
+                                    <form id="addNewsForm" class="space-y-4">
+                                        <div>
+                                            <label class="block text-sm mb-1 text-gray-400">Title</label>
+                                            <input type="text" name="title" placeholder="Enter title"
+                                                class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-blue-500"
+                                                required>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm mb-1 text-gray-400">Content</label>
+                                            <textarea name="content" placeholder="Minimum content..." rows="4"
+                                                class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-blue-500"
+                                                required></textarea>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm mb-1 text-gray-400">Slug</label>
+                                            <input type="text" name="slug" placeholder="slug-data"
+                                                class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-blue-500">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm mb-1 text-gray-400">Category</label>
+                                            <select id="categorySelect"
+                                                class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-blue-500"
+                                                required>
+                                                <option value="" disabled selected>Select category</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm mb-1 text-gray-400">Thumbnail URL</label>
+                                            <input name="thumbnail" placeholder="https://..."
+                                                class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-blue-500"
+                                                required>
+                                        </div>
+                                        <div class="modal-action flex justify-between items-center">
+                                            <button type="submit"
+                                                class="px-5 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition">
+                                                Create
+                                            </button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </dialog>
+                            <dialog id="my_modal_7" class="modal ">
+                                <div class="modal-box  w-full max-w-2xl bg-gray-900 text-white">
+                                    <form method="dialog">
+                                        <button>
+                                            Close
+                                        </button>
+                                    </form>
+                                    <h3 class="text-xl font-bold mb-6">Edit News</h3>
+                                    <form id="updateNewsForm" class="space-y-4">
+                                        <div>
+                                            <label class="block text-sm mb-1 text-gray-400">Title</label>
+                                            <input id="updateTitle" type="text" name="title" placeholder="Enter title"
+                                                class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-blue-500"
+                                                required>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm mb-1 text-gray-400">Content</label>
+                                            <textarea id="updateContent" name="content" placeholder="Minimum content..." rows="4"
+                                                class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-blue-500"
+                                                required></textarea>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm mb-1 text-gray-400">Slug</label>
+                                            <input id="updateSlug" type="text" name="slug" placeholder="slug-data"
+                                                class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-blue-500">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm mb-1 text-gray-400">Category</label>
+                                            <select id="updateCategorySelect"
+                                                class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-blue-500"
+                                                required>
+                                                <option value="" disabled selected>Select category</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm mb-1 text-gray-400">Thumbnail URL</label>
+                                            <input id="updateUrl" name="thumbnail" placeholder="https://..."
+                                                class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-blue-500"
+                                                required>
+                                        </div>
+                                        <div class="modal-action flex justify-between items-center">
+                                            <button type="submit"
+                                                class="px-5 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition">
+                                                Edit
+                                            </button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </dialog>
+                        </div>
+                    </div>
+                    <div class=" overflow-x-auto rounded-box border border-[#ccc] bg-base-100">
+                        <table class="table">
+                            <!-- head -->
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Thumbnail</th>
+                                    <th>Title</th>
+                                    <th>Slug</th>
+                                    <th>Like</th>
+                                    <th>Dislike</th>
+                                    <th>Views</th>
+                                    <th>Category</th>
+                                    <th>Pin</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="newsTable">
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex items-center justify-center mt-5">
+                        <div id="pagination" class="join">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="page  hidden" id="category">
+                    <div>
+                        <div class=" mx-auto">
+
+                            <div class="flex items-center justify-between">
+                                <h2 class="text-2xl font-bold mb-6">Categories Table</h2>
+                                <!-- You can open the modal using ID.showModal() method -->
+                                <button class="btn btn-primary" onclick="my_modal_3.showModal()">Add Category</button>
+
+                                <dialog id="my_modal_3" class="modal">
+                                    <div class="modal-box bg-gray-900 text-white">
+                                        <form method="dialog">
+                                            <button
+                                                class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                        </form>
+                                        <h3 class="text-xl font-bold mb-6">Create Category</h3>
+                                        <form id="categoryForm" class="space-y-4">
+                                            <div>
+                                                <label class="block text-sm mb-1 text-gray-400">Title</label>
+                                                <input type="text" name="title" placeholder="Enter category title"
+                                                    class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-blue-500"
+                                                    required />
+                                            </div>
+                                            <div>
+                                                <label class="block text-sm mb-1 text-gray-400">Slug</label>
+                                                <input type="text" name="slug"
+                                                    placeholder="Enter slug (example: tech-news)"
+                                                    class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-blue-500"
+                                                    required />
+                                            </div>
+
+                                            <!-- BUTTONS -->
+                                            <div class="flex justify-end gap-2 pt-4">
+                                                <button type="button" onclick="my_modal_3.close()"
+                                                    class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg">
+                                                    Cancel
+                                                </button>
+
+                                                <button type="submit"
+                                                    class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg">
+                                                    Create
+                                                </button>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                </dialog>
+                            </div>
+                            <dialog id="my_modal_6" class="modal">
+                                <div class="modal-box bg-gray-900 text-white">
+                                    <form method="dialog">
+                                        <button
+                                            class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                    </form>
+                                    <h3 class="text-xl font-bold mb-6">Create Category</h3>
+                                    <form id="updateCategoryForm" class="space-y-4">
+                                        <div>
+                                            <label class="block text-sm mb-1 text-gray-400">Title</label>
+                                            <input id="titleInput" type="text" name="title"
+                                                placeholder="Enter category title"
+                                                class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-blue-500"
+                                                required />
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm mb-1 text-gray-400">Slug</label>
+                                            <input id="slugInput" type="text" name="slug"
+                                                placeholder="Enter slug (example: tech-news)"
+                                                class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-blue-500"
+                                                required />
+                                        </div>
+                                        <div class="flex justify-end gap-2 pt-4">
+                                            <button type="button" onclick="my_modal_6.close()"
+                                                class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg">
+                                                Cancel
+                                            </button>
+
+                                            <button type="submit"
+                                                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg">
+                                                Update
+                                            </button>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </dialog>
+                            <div class="overflow-x-auto rounded-2xl border border-gray-800 shadow-lg">
+                                <table class="min-w-full text-sm text-left">
+
+                                    <!-- HEADER -->
+                                    <thead class="bg-gray-900 text-gray-400 uppercase text-xs">
+                                        <tr>
+                                            <th class="px-6 py-4">No</th>
+                                            <th class="px-6 py-4">Title</th>
+                                            <th class="px-6 py-4">Slug</th>
+                                            <th class="px-6 py-4">Created At</th>
+                                            <th class="px-6 py-4">Updated At</th>
+                                            <th class="px-6 py-4 text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="categoryTable" class="divide-y divide-gray-800">
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="page hidden" id="users">
+                    <div class="text-black">
+                        <div class=" mx-auto">
+
+                            <h2 class="text-2xl font-bold mb-6">Users Table</h2>
+
+                            <div class="overflow-x-auto rounded-2xl shadow-lg border border-gray-800">
+                                <table class="w-full text-sm text-left">
+                                    <thead class="bg-gray-800 text-gray-400 uppercase text-xs">
+                                        <tr>
+                                            <th class="px-6 py-4">User</th>
+                                            <th class="px-6 py-4">Email</th>
+                                            <th class="px-6 py-4">Role</th>
+                                            <th class="px-6 py-4">Gender</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="userTable" class="divide-y text-black divide-gray-800">
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="drawer-side is-drawer-close:overflow-visible">
+            <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
+            <div class="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
+                <!-- Sidebar content here -->
+                <ul id="list" class="menu w-full grow">
+                    <!-- List item -->
+                    <li>
+                        <button class=" is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
+                            <!-- Home icon -->
+                            <i class="fa-solid fa-newspaper"></i>
+                            <span class="is-drawer-close:hidden">News</span>
+                        </button>
+                    </li>
+
+                    <!-- List item -->
+                    <li>
+                        <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
+                            <!-- Settings icon -->
+                            <i class="fa-solid fa-layer-group"></i>
+                            <span class="is-drawer-close:hidden">Categoty</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
+                            <!-- Settings icon -->
+                            <i class="fa-solid fa-users"></i>
+                            <span class="is-drawer-close:hidden">User</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="scripts/service.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="scripts/admin.js"></script>
+    <script src="scripts/admin/news.js"></script>
+    <script src="scripts/admin/category.js"></script>
+    <script src="scripts/admin/user.js"></script>
+</body>
+
+</html>
