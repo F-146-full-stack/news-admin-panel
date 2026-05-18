@@ -1,134 +1,408 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Apasnı News</title>
+
     <link rel="stylesheet" href="./styles/output.css">
+
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
-<body>
-    <main>
+<body class="bg-[#f6f7fb] text-black">
+
+    <main class="min-h-screen">
+
         <div class="drawer lg:drawer-open">
             <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
-            <div class="drawer-content ">
-                <nav class="navbar w-full bg-base-300">
-                    <label for="my-drawer-4" aria-label="open sidebar" class="btn lg:hidden btn-square btn-ghost">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round"
-                            stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor"
-                            class="my-1.5 inline-block size-4">
-                            <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z">
-                            </path>
-                            <path d="M9 4v16"></path>
-                            <path d="M14 10l2 2l-2 2"></path>
-                        </svg>
-                    </label>
-                    <div class="flex items-center w-full justify-between px-4">
-                        <div class="h-15">
-                            <img class="w-full h-full object-contain"
-                                src="assets/Gemini_Generated_Image_t216i9t216i9t216-removebg-preview.png" alt="">
+
+            <!-- CONTENT -->
+            <div class="drawer-content flex flex-col">
+
+                <!-- NAVBAR -->
+                <nav
+                    class="sticky top-0 z-50 border-b border-black/5 backdrop-blur-xl bg-white/80">
+                    <div class="navbar px-4 lg:px-8">
+
+                        <div class="flex items-center gap-3">
+
+                            <label for="my-drawer-4"
+                                class="btn btn-ghost btn-circle lg:hidden">
+                                <i class="fa-solid fa-bars text-lg"></i>
+                            </label>
+
+                            <div class="h-14">
+                                <img class="h-full object-contain"
+                                    src="assets/Gemini_Generated_Image_t216i9t216i9t216-removebg-preview.png"
+                                    alt="">
+                            </div>
+
                         </div>
-                        <div>
+
+                        <div class="ml-auto flex items-center gap-4">
+
+                            <button
+                                class="hidden md:flex items-center gap-2 px-4 py-2 rounded-xl bg-black/5 hover:bg-black/10 transition">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <span class="text-sm">Search</span>
+                            </button>
+
                             <div id="profile" class="hidden dropdown dropdown-end">
-                                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-                                    <div class="w-10 rounded-full">
-                                        <img id="userImage" class="w-full h-full object-contain" alt="Tailwind CSS Navbar component"
+
+                                <div tabindex="0" role="button"
+                                    class="btn btn-ghost btn-circle avatar">
+
+                                    <div
+                                        class="w-11 rounded-full ring ring-primary ring-offset-2 ring-offset-white">
+
+                                        <img id="userImage"
                                             src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+
                                     </div>
+
                                 </div>
+
                                 <ul tabindex="-1"
-                                    class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                                    class="menu menu-sm dropdown-content mt-3 w-56 rounded-2xl bg-white border border-black/10 shadow-2xl p-2">
+
                                     <li>
-                                        <a class="justify-between">
-                                            Profile
+                                        <a class="rounded-xl">Profile</a>
+                                    </li>
+
+                                    <li onclick="logOut()">
+                                        <a class="rounded-xl text-error">
+                                            Logout
                                         </a>
                                     </li>
-                                    <li onclick="logOut()"><a>Logout</a></li>
+
                                 </ul>
+
                             </div>
-                            <button id="login_btn" onclick="navigateLogin()" class=" btn btn-primary">Log
-                                in</button>
+
+                            <button id="login_btn"
+                                onclick="navigateLogin()"
+                                class="btn rounded-xl btn-primary px-6 text-white">
+                                Log in
+                            </button>
+
                         </div>
+
                     </div>
                 </nav>
-                <div class="p-4">
-                    <div class="hero bg-base-200 ">
-                        <div class="hero-content flex-col lg:flex-row-reverse">
-                            <img src="assets/Gemini_Generated_Image_jzjhtqjzjhtqjzjh.png"
-                                class="max-w-sm rounded-lg shadow-2xl" />
-                            <div>
-                                <h1 class="text-5xl font-bold">Apasnı News!</h1>
-                                <p class="py-6">
-                                    Bakıda yeni sosial layihəyə start verilib. Layihə çərçivəsində gənclərin peşə
-                                    bacarıqlarının artırılması və məşğulluq imkanlarının genişləndirilməsi nəzərdə
-                                    tutulur. Mütəxəssislər bildirirlər ki, bu təşəbbüs gələcəkdə əmək bazarında rəqabət
-                                    qabiliyyətini artıracaq və yeni iş imkanları yaradacaq.
+
+                <!-- HERO -->
+                <section class="px-4 lg:px-8 py-8 lg:py-10">
+
+                    <div
+                        class="relative overflow-hidden rounded-[32px] border border-black/5 bg-gradient-to-br from-white via-[#f8fafc] to-[#eef2ff] shadow-sm">
+
+                        <div
+                            class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.18),transparent_30%)]">
+                        </div>
+
+                        <div
+                            class="hero-content relative z-10 flex-col-reverse lg:flex-row items-center justify-between gap-10 p-8 lg:p-16">
+
+                            <div class="max-w-2xl">
+
+                                <div
+                                    class="badge badge-primary text-white border-none mb-5 px-4 py-3">
+                                    Breaking News
+                                </div>
+
+                                <h1
+                                    class="text-4xl md:text-6xl font-black leading-tight">
+
+                                    Apasnı News
+                                    <span class="text-primary">
+                                        Future Media
+                                    </span>
+
+                                </h1>
+
+                                <p
+                                    class="py-6 text-base md:text-lg text-gray-600 leading-8">
+
+                                    Bakıda yeni sosial layihəyə start verilib.
+                                    Layihə çərçivəsində gənclərin peşə
+                                    bacarıqlarının artırılması və məşğulluq
+                                    imkanlarının genişləndirilməsi nəzərdə
+                                    tutulur.
+
                                 </p>
+
+                                <div class="flex flex-wrap gap-4">
+
+                                    <button
+                                        class="btn btn-primary rounded-xl px-7 text-white">
+                                        Explore News
+                                    </button>
+
+                                    <button
+                                        class="btn btn-outline rounded-xl px-7">
+                                        Trending
+                                    </button>
+
+                                </div>
+
                             </div>
-                        </div>
-                    </div>
-                    <div id="newsArea" class="grid grid-cols-3 gap-5 my-10"></div>
-                    <div class="flex justify-center">
-                        <div id="pagination" class="join">
+
+                            <div class="relative">
+
+                                <div
+                                    class="absolute inset-0 bg-primary/20 blur-3xl rounded-full">
+                                </div>
+
+                                <img src="assets/Gemini_Generated_Image_jzjhtqjzjhtqjzjh.png"
+                                    class="relative z-10 w-[320px] lg:w-[420px] rounded-[30px] border border-black/5 shadow-2xl object-cover" />
+
+                            </div>
 
                         </div>
+
                     </div>
 
-                </div>
+                </section>
+
+                <!-- NEWS SECTION -->
+                <section class="px-4 lg:px-8">
+
+                    <div
+                        class="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-8">
+
+                        <div>
+
+                            <h2 class="text-3xl font-bold">
+                                Latest Articles
+                            </h2>
+
+                            <p class="text-gray-500 mt-2">
+                                Discover the latest stories around the world
+                            </p>
+
+                        </div>
+
+                        <div class="flex gap-3 flex-wrap">
+
+                            <button
+                                class="btn btn-sm rounded-xl bg-white border-black/10 hover:bg-black/5 text-black">
+                                Technology
+                            </button>
+
+                            <button
+                                class="btn btn-sm rounded-xl bg-white border-black/10 hover:bg-black/5 text-black">
+                                Politics
+                            </button>
+
+                            <button
+                                class="btn btn-sm rounded-xl bg-white border-black/10 hover:bg-black/5 text-black">
+                                Economy
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <!-- NEWS AREA -->
+                    <div id="newsArea"
+                        class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 my-10">
+                    </div>
+
+                    <!-- PAGINATION -->
+                    <div class="flex justify-center pb-14">
+
+                        <div id="pagination"
+                            class="join bg-white rounded-2xl p-2 border border-black/10 shadow-sm">
+                        </div>
+
+                    </div>
+
+                </section>
+
             </div>
 
-            <div class="drawer-side  is-drawer-close:overflow-visible">
-                <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-                <div
-                    class="flex w-50 min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
-                    <h3 class="w-full font-semibold text-2xl p-2 text-center">Categories</h3>
-                    <ul id="categories" class="menu w-full grow"> </ul>
-                </div>
+            <!-- SIDEBAR -->
+            <div class="drawer-side">
+
+                <label for="my-drawer-4"
+                    aria-label="close sidebar"
+                    class="drawer-overlay">
+                </label>
+
+                <aside
+                    class="min-h-full w-60 bg-white border-r border-black/5 flex flex-col">
+
+                    <div
+                        class="p-4 border-b border-black/5 flex items-center gap-3">
+
+                        <div
+                            class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary text-lg">
+
+                            <i class="fa-solid fa-newspaper"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h2 class="font-bold text-lg">
+                                Categories
+                            </h2>
+
+                            <p class="text-xs text-gray-500">
+                                Explore Topics
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <ul id="categories"
+                        class="menu p-3 w-full gap-1 text-sm">
+                    </ul>
+
+                </aside>
+
             </div>
+
         </div>
+
     </main>
-    <footer class="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
-        <aside>
-            <div class=" h-15">
-                <img class="w-full h-full object-contain"
-                    src="assets/Gemini_Generated_Image_t216i9t216i9t216-removebg-preview.png" alt="">
+
+    <!-- FOOTER -->
+    <footer
+        class="border-t border-black/5 bg-white px-6 lg:px-10 py-14 mt-10">
+
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+            <div>
+
+                <div class="h-16 mb-4">
+
+                    <img class="h-full object-contain"
+                        src="assets/Gemini_Generated_Image_t216i9t216i9t216-removebg-preview.png"
+                        alt="">
+
+                </div>
+
+                <p class="text-gray-500 leading-7">
+
+                    Modern digital news platform bringing real-time updates,
+                    technology, politics and global stories together.
+
+                </p>
+
+                <div class="flex gap-4 mt-6 text-lg">
+
+                    <a
+                        class="w-10 h-10 rounded-xl bg-black/5 hover:bg-primary hover:text-white transition flex items-center justify-center">
+
+                        <i class="fa-brands fa-facebook-f"></i>
+
+                    </a>
+
+                    <a
+                        class="w-10 h-10 rounded-xl bg-black/5 hover:bg-primary hover:text-white transition flex items-center justify-center">
+
+                        <i class="fa-brands fa-instagram"></i>
+
+                    </a>
+
+                    <a
+                        class="w-10 h-10 rounded-xl bg-black/5 hover:bg-primary hover:text-white transition flex items-center justify-center">
+
+                        <i class="fa-brands fa-x-twitter"></i>
+
+                    </a>
+
+                </div>
+
             </div>
-            <p>
-                ACME Industries Ltd.
-                <br />
-                Providing reliable tech since 1992
-            </p>
-        </aside>
-        <nav>
-            <h6 class="footer-title">Services</h6>
-            <a class="link link-hover">Branding</a>
-            <a class="link link-hover">Design</a>
-            <a class="link link-hover">Marketing</a>
-            <a class="link link-hover">Advertisement</a>
-        </nav>
-        <nav>
-            <h6 class="footer-title">Company</h6>
-            <a class="link link-hover">About us</a>
-            <a class="link link-hover">Contact</a>
-            <a class="link link-hover">Jobs</a>
-            <a class="link link-hover">Press kit</a>
-        </nav>
-        <nav>
-            <h6 class="footer-title">Legal</h6>
-            <a class="link link-hover">Terms of use</a>
-            <a class="link link-hover">Privacy policy</a>
-            <a class="link link-hover">Cookie policy</a>
-        </nav>
+
+            <nav class="flex flex-col gap-3">
+
+                <h6 class="footer-title">
+                    Services
+                </h6>
+
+                <a class="link link-hover text-gray-500">
+                    Branding
+                </a>
+
+                <a class="link link-hover text-gray-500">
+                    Design
+                </a>
+
+                <a class="link link-hover text-gray-500">
+                    Marketing
+                </a>
+
+                <a class="link link-hover text-gray-500">
+                    Advertisement
+                </a>
+
+            </nav>
+
+            <nav class="flex flex-col gap-3">
+
+                <h6 class="footer-title">
+                    Company
+                </h6>
+
+                <a class="link link-hover text-gray-500">
+                    About us
+                </a>
+
+                <a class="link link-hover text-gray-500">
+                    Contact
+                </a>
+
+                <a class="link link-hover text-gray-500">
+                    Jobs
+                </a>
+
+                <a class="link link-hover text-gray-500">
+                    Press kit
+                </a>
+
+            </nav>
+
+            <nav class="flex flex-col gap-3">
+
+                <h6 class="footer-title">
+                    Legal
+                </h6>
+
+                <a class="link link-hover text-gray-500">
+                    Terms of use
+                </a>
+
+                <a class="link link-hover text-gray-500">
+                    Privacy policy
+                </a>
+
+                <a class="link link-hover text-gray-500">
+                    Cookie policy
+                </a>
+
+            </nav>
+
+        </div>
+
+        <div
+            class="border-t border-black/5 mt-10 pt-6 text-center text-gray-400 text-sm">
+
+            © 2026 Apasnı News — All rights reserved.
+        </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="scripts/service.js"></script>
     <script src="scripts/script.js"></script>
 </body>
-
-</html>
+</html> 

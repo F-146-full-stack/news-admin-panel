@@ -110,3 +110,28 @@ const login = async (params) => {
     let data = await res.json()
     return data
 }
+
+
+const register = async (params) => {
+    let res = await fetch(`${BASE_URL}/auth/register`, {
+        method: "POST",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify(params)
+    })
+    let data = await res.json()
+    return data
+}
+
+const upload = async (params) => {
+    let res = await fetch(`${BASE_URL}/upload`, {
+        method: "POST",
+        body: params,
+        // headers: {
+        //     "content-type": "multipart/form-data"
+        // }
+    })
+    let data = await res.json()
+    return data
+}
