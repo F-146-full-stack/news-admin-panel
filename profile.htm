@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/output.css">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+
+</head>
+
+<body>
+    <header>
+        <nav class="sticky top-0 z-50 border-b border-black/5 backdrop-blur-xl bg-white/80">
+            <div class="navbar px-4 lg:px-8">
+
+                <div class="flex items-center gap-3">
+
+                    <label for="my-drawer-4" class="btn btn-ghost btn-circle lg:hidden">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </label>
+
+                    <div class="h-14">
+                        <img class="h-full object-contain"
+                            src="assets/Gemini_Generated_Image_t216i9t216i9t216-removebg-preview.png" alt="">
+                    </div>
+
+                </div>
+
+                <div class="ml-auto flex items-center gap-4">
+
+                    <button
+                        class="hidden md:flex items-center gap-2 px-4 py-2 rounded-xl bg-black/5 hover:bg-black/10 transition">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <span class="text-sm">Search</span>
+                    </button>
+
+                    <div id="profile" class=" dropdown dropdown-end">
+
+                        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+
+                            <div class="w-11 rounded-full ring ring-primary ring-offset-2 ring-offset-white">
+
+                                <img id="userImage"
+                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+
+                            </div>
+
+                        </div>
+
+                        <ul tabindex="-1"
+                            class="menu menu-sm dropdown-content mt-3 w-56 rounded-2xl bg-white border border-black/10 shadow-2xl p-2">
+
+                            <li>
+                                <a href="profile.htm" class="rounded-xl">Profile</a>
+                            </li>
+
+                            <li onclick="logOut()">
+                                <a class="rounded-xl text-error">
+                                    Logout
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <main class="bg-gray-100 p-4 ">
+
+        <section>
+            <div class="container bg-white p-3 rounded-2xl m-auto w-9/10">
+                <div class="profile-area flex justify-between ">
+                    <div class="flex gap-5 ">
+                        <div class="relative w-30 rounded-full h-30">
+                            <img id="profileImage" class="object-cover rounded-full w-full h-full"
+                                src="https://firebasestorage.googleapis.com/v0/b/dpsummary.firebasestorage.app/o/user_profiles%2FpfuXAgmZHTh1febkmXXFxE8oXb23%2F1764739547915_c7zvbzkg.png?alt=media&token=7cd3083b-5fa5-4a6c-929e-92a32abd557f"
+                                alt="">
+                            <span onclick="openSheet()" id="photoIcon"
+                                class="hidden absolute bottom-0 right-0 bg-blue-400 text-white rounded-full px-1.5 py-1"><i
+                                class="fa-regular fa-camera"></i>
+                            </span>
+                        </div>
+                        <div class="profile-name flex flex-col">
+                            <span class="text-2xl font-semibold italic" id="userName">Mehemmed08</span>
+                            <span>Full Name : <span id="fullName">F-146</span></span>
+                            <span>Role : <span id="role"></span></span>
+                            <span class="text-[#ccc] italic" id="email">mehemmed.e@kitgid.com</span>
+                        </div>
+                    </div>
+                    <button id="editBtn" onclick="toggleChange(true)"
+                        class="py-1 border bg-blue-500 text-white border-gray-400 flex items-center justify-center gap-1 rounded-[5px] px-2 h-full cursor-pointer">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        Edit Profile
+                    </button>
+                </div>
+                <div id="changeForm" class=" hidden ">
+                    <form id="updateForm" class="input-side  flex flex-col gap-1 mt-10">
+                        <label for=""> Full Name</label>
+                        <input class=" border-gray-400 rounded-[5px] px-2.5 py-1"
+                            placeholder="Enter Your Display Name.." required type="text">
+                        <label for="">User Name</label>
+                        <input class=" border-gray-400 rounded-[5px] px-2.5 py-1"
+                            placeholder="Enter Your Display Name.." required type="text">
+                        <label for="">Gender</label>
+                        <select class=" border-gray-400 rounded-[5px] px-2.5 py-1" id="">
+                            <option disabled value="">Please Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        <div class="btns flex gap-5 mt-5">
+                            <button class="bg-blue-600 rounded text-white px-2.5 py-1 cursor-pointer">
+                                <span id="save_btn"><i class="fa-regular fa-floppy-disk"></i></span> Save
+                                Changes</button>
+                            <button type="button" onclick="toggleChange(false)"
+                                class=" py-1 border border-gray-400 rounded-[5px] px-1  cursor-pointer">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+
+    </main>
+
+    <footer class="border-t border-black/5 bg-white px-6 lg:px-10 py-14 mt-10">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+            <div>
+
+                <div class="h-16 mb-4">
+
+                    <img class="h-full object-contain"
+                        src="assets/Gemini_Generated_Image_t216i9t216i9t216-removebg-preview.png" alt="">
+
+                </div>
+
+                <p class="text-gray-500 leading-7">
+
+                    Modern digital news platform bringing real-time updates,
+                    technology, politics and global stories together.
+
+                </p>
+
+                <div class="flex gap-4 mt-6 text-lg">
+
+                    <a
+                        class="w-10 h-10 rounded-xl bg-black/5 hover:bg-primary hover:text-white transition flex items-center justify-center">
+
+                        <i class="fa-brands fa-facebook-f"></i>
+
+                    </a>
+
+                    <a
+                        class="w-10 h-10 rounded-xl bg-black/5 hover:bg-primary hover:text-white transition flex items-center justify-center">
+
+                        <i class="fa-brands fa-instagram"></i>
+
+                    </a>
+
+                    <a
+                        class="w-10 h-10 rounded-xl bg-black/5 hover:bg-primary hover:text-white transition flex items-center justify-center">
+
+                        <i class="fa-brands fa-x-twitter"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <nav class="flex flex-col gap-3">
+
+                <h6 class="footer-title">
+                    Services
+                </h6>
+
+                <a class="link link-hover text-gray-500">
+                    Branding
+                </a>
+
+                <a class="link link-hover text-gray-500">
+                    Design
+                </a>
+
+                <a class="link link-hover text-gray-500">
+                    Marketing
+                </a>
+
+                <a class="link link-hover text-gray-500">
+                    Advertisement
+                </a>
+
+            </nav>
+
+            <nav class="flex flex-col gap-3">
+
+                <h6 class="footer-title">
+                    Company
+                </h6>
+
+                <a class="link link-hover text-gray-500">
+                    About us
+                </a>
+
+                <a class="link link-hover text-gray-500">
+                    Contact
+                </a>
+
+                <a class="link link-hover text-gray-500">
+                    Jobs
+                </a>
+
+                <a class="link link-hover text-gray-500">
+                    Press kit
+                </a>
+
+            </nav>
+
+            <nav class="flex flex-col gap-3">
+
+                <h6 class="footer-title">
+                    Legal
+                </h6>
+
+                <a class="link link-hover text-gray-500">
+                    Terms of use
+                </a>
+
+                <a class="link link-hover text-gray-500">
+                    Privacy policy
+                </a>
+
+                <a class="link link-hover text-gray-500">
+                    Cookie policy
+                </a>
+
+            </nav>
+
+        </div>
+
+        <div class="border-t border-black/5 mt-10 pt-6 text-center text-gray-400 text-sm">
+
+            © 2026 Apasnı News — All rights reserved.
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="scripts/service.js"></script>
+    <script src="scripts/user/profile.js"></script>
+</body>
+
+</html>

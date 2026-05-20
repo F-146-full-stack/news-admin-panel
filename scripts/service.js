@@ -128,9 +128,19 @@ const upload = async (params) => {
     let res = await fetch(`${BASE_URL}/upload`, {
         method: "POST",
         body: params,
-        // headers: {
-        //     "content-type": "multipart/form-data"
-        // }
+    })
+    let data = await res.json()
+    return data
+}
+
+const userMe = async (params) => {
+    let res = await fetch(`${BASE_URL}/users/me`, {
+        method: "POST",
+        body: JSON.stringify(params),
+        headers: {
+            "content-type": "application/json",
+            "Authorization": `Bearer ${accesToken}`
+        }
     })
     let data = await res.json()
     return data
